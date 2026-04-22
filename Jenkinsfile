@@ -2,12 +2,10 @@ node {
     def appDir = '/var/www/three-tier-application'
 
     stage('Clean Workspace') {
-        echo 'Cleaning Jenkins workspace'
-        deleteDir()
+        sh 'sudo rm -rf *'
     }
 
     stage('Clone Repo') {
-        echo 'Cloning repository from GitHub'
         git(
             branch: 'main',
             url: 'https://github.com/sayyab2040/CI-CD-jenkins-AWS.git'
@@ -15,7 +13,6 @@ node {
     }
 
     stage('Deploy Application') {
-        echo 'Deploying three-tier application'
         sh """
             sudo mkdir -p ${appDir}
             sudo chown -R jenkins:jenkins ${appDir}
